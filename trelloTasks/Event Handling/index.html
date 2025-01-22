@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling</title>
+    <link rel="stylesheet" href="./scss/main.css">
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <div class="regestation">
+            <h1>Пройдіть коротку регестрацію</h1>
+            <form class="form">
+                <input type="text" placeholder="Ваше ім'я" id="name" oninput="validateAndShow()">
+                <span id="error-name">Ваше ім'я повино містити лише літери</span>
+                <input type="email" placeholder="Ваша пошта" id="email" oninput="validateAndShowEmail()">
+                <span id="email-example">Приклад пошти: 3hY4G@example.com</span>
+                <input type="password" placeholder="Ваш пароль" id="password" oninput="validateAndShowPassword()">
+                <span id="error-password">Пароль має містити лише латинські літери та цифри</span>
+                <button id="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="./JS/script.js"></script>
+</body>
+
+</html>

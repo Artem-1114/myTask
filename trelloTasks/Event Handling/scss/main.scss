@@ -1,0 +1,133 @@
+@import "./bock/_start.scss";
+body{
+    background: linear-gradient(to right top, #d3d61c, #0000ff);
+}
+
+.regestation{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    margin: 150px auto 0 auto;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 10s ease-in-out;
+    backdrop-filter: brightness(1);
+    &:hover{
+        backdrop-filter: brightness(1.2);
+    }
+
+
+    h1{
+        text-align: center;
+        padding: 20px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .form{
+        display: flex;
+        flex-direction: column;
+        input {
+            width: 250px;
+            height: 30px;
+            margin: 0 auto;
+            border-radius: 5px;
+            font-size: 16px;
+            padding: 0 10px;
+            margin-bottom: 30px;  
+        }
+
+
+    }
+    button{
+        width: 100px;
+        height: 30px;
+        margin: 0 auto;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: rgb(187, 30, 30);
+        border: 1px solid #000;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+        transition: background-color 1s ease-in-out;
+        &:hover{
+            background-color: rgb(236, 21, 21);
+        }
+    }
+}
+#error-name{
+    display: none;
+    color: red;
+    text-align: center;
+    position: absolute;
+    top: 94px;
+    left: 101px;
+    font-weight:700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+#name:focus+#error-name{
+    display: block;
+}
+#error-name.fade {
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+#error-name.show {
+    display: block;
+    opacity: 1;
+}
+input.border {
+    border: 2px solid red;
+}
+#email-example {
+    display: block;
+    color: black;
+    text-align: center;
+    position: absolute;
+    top: 155px;
+    left: 101px;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+#email:focus+#email-example {
+    display: none;
+}
+
+#email-example.fade {
+    opacity: 1;
+    transition: opacity 3s ease;
+}
+
+#email-example.show {
+    display: block;
+    opacity: 0;
+}
+#error-password {
+    display: none;
+    color: red;
+    text-align: center;
+    position: absolute;
+    top: 215px;
+    left: 69px;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+#password:focus+#error-password {
+    display: block;
+}
+
+#error-password.fade {
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+
+#error-password.show {
+    display: block;
+    opacity: 1;
+}
+
+
