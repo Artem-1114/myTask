@@ -14,8 +14,9 @@
         <div class="regestation">
             <h1>Пройдіть коротку регестрацію</h1>
             <form class="form">
-                <input type="text" placeholder="Ваше ім'я" id="name" oninput="validateAndShow()">
+                <input type="text" placeholder="Ваше ім'я" id="name" oninput="validateAndShow()" oninput ="cloud()">
                 <span id="error-name">Ваше ім'я повино містити лише літери</span>
+                <div class="example">Наприклад: Іван</div>
                 <input type="email" placeholder="Ваша пошта" id="email" oninput="validateAndShowEmail()">
                 <span id="email-example">Приклад пошти: 3hY4G@example.com</span>
                 <input type="password" placeholder="Ваш пароль" id="password" oninput="validateAndShowPassword()">

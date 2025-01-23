@@ -1,3 +1,23 @@
+
+const cloud = () => { 
+    const inputField = document.getElementById("name");
+    const tooltip = document.querySelector(".example");
+    function giveHint(input) {
+        if (!input.value) { 
+            tooltip.style.transform = "scale(1)";
+        }
+    }
+    function hideHint() {
+        tooltip.style.opacity = "0";
+        tooltip.style.transform = "scale(0.8)";
+    }
+    inputField.addEventListener("focus", () => giveHint(inputField));
+    inputField.addEventListener("input", hideHint);
+    inputField.addEventListener("blur", hideHint);
+
+}
+cloud();
+
 function validateName(name) {
     const regex = /^[a-zA-Zа-яА-ЯёЁЇїІіЄєҐґ\s]+$/;
     return regex.test(name.trim());

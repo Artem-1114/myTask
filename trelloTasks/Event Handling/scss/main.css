@@ -195,4 +195,31 @@ input.border {
 #error-password.show {
   display: block;
   opacity: 1;
+}
+
+.example {
+  position: absolute;
+  top: 93px;
+  left: 92px;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.form:hover .example {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.form input:focus + .example,
+.form input:not(:placeholder-shown) + .example {
+  opacity: 0;
+  transform: scale(0.8);
 }/*# sourceMappingURL=main.css.map */
