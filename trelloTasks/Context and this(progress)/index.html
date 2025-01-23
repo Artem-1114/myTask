@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling</title>
+    <link rel="stylesheet" href="./scss/main.css">
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <div class="border-img">
+            <div class="choice">
+                <h1>Забронювати номер</h1>
+                <div class="choice-block" >
+                   <div class="start-data" id="start-data">
+                        <img src="./images/Иконка_календаря_(ei).svg.png" alt="svg Іконка календаря" id="start">
+                        <p>Дата заїзду</p>
+                   </div>
+                <div class="date-picker">
+                    <input type="date" id="start-in-date" />
+                </div>
+                   <div class="end-data" id="end-data">
+                        <img src="./images/Иконка_календаря_(ei).svg.png" alt="svg Іконка календаря" id="end">
+                        <p>Дата виїзду</p>
+                   </div>
+                <div class="date-picker">
+                    <input type="date" id="end-in-date" />
+                </div>
+                   <div class="choice-human">
+                    <div id ="choice-adult">
+                        <p>1 дорослий</p>
+                        <img src="./images/892498.png" alt="svg">
+                    </div>
+                    <div id="choice-child">
+                        <p>0 дітей</p>
+                        <img src="./images/892498.png" alt="svg">
+                    </div id="choice-child">
+                   </div>
+                   <button class="btn">Знайти номер</button>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="./JS/script.js"></script>
+</body>
+
+</html>

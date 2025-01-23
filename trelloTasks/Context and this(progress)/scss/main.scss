@@ -1,0 +1,134 @@
+@import "./bock/_start.scss";
+body img{
+    width: 20px;
+    height: 20px;
+}
+.border-img{
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/istockphoto-1336116827-2048x2048.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    padding-top:60px; ;
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
+}
+
+.choice-block {
+    display: flex;
+    margin-bottom: 20px;
+    width: 750px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: #ebebd7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+}
+.start-data{
+    display: flex;
+    align-items: center;
+    img {
+        height: 35px;
+        width: 34px;
+        margin-right: 5px;
+        margin-left: 20px;
+    }
+    p {
+        font-size: 16px;
+    }
+ 
+}
+.end-data {
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 35px;
+        width: 34px;
+        margin-right: 5px;
+        
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+.choice-human {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width: 200px;
+    justify-content: space-between;
+    img {
+        height: 20px;
+        width: 20px;
+        margin-right: 5px;
+    }
+    p {
+        font-size: 16px;
+    }
+}
+.btn{
+   height: 40px;
+   width: 180px;
+   border-radius: 6px;
+   margin-right: 20px;
+//    background-color: rgba(240, 228, 204, 1);
+   background-color: rgb(175, 104, 33);
+   letter-spacing: 1.5px;
+   font-size: 18px;
+   color: white;
+   transition: all 2s ease-in-out;
+   &:hover{
+    transform: scale(1.1);
+    background-color: rgba(240, 228, 204, 1);
+    color: rgb(175, 104, 33);
+    border: 1px solid rgb(175, 104, 33);
+   }
+}
+
+#start-in-date {
+    position: absolute;
+    right: 580px;
+    top: 73px;
+    width: 159px;
+    height: 35px;
+    font-size: 18px;
+    background-color: rgba(240, 228, 204, 1);
+    color: rgb(175, 104, 33);
+    border: 1px solid rgb(175, 104, 33);
+    border-radius: 6px;
+    display: none;
+    
+}
+#end-in-date {
+    position: absolute;
+    right: 427px;
+    top: 73px;
+    width: 159px;
+    height: 35px;
+    font-size: 18px;
+    background-color: rgba(240, 228, 204, 1);
+    color: rgb(175, 104, 33);
+    border: 1px solid rgb(175, 104, 33);
+    border-radius: 6px;
+    display: none;
+
+}
+
+
+
+
+
+
+
