@@ -135,10 +135,20 @@ h1 {
 .choice-human img {
   height: 20px;
   width: 20px;
-  margin-right: 5px;
+  margin-left: 5px;
 }
 .choice-human p {
   font-size: 16px;
+}
+.choice-human #choice-adult {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.choice-human #choice-child {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .btn {
@@ -185,4 +195,54 @@ h1 {
   border: 1px solid rgb(175, 104, 33);
   border-radius: 6px;
   display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+#options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 100px;
+  position: absolute;
+  top: 28px;
+  left: -5px;
+  font-size: 16px;
+  background-color: #ebebd7;
+}
+
+#options li {
+  padding: 5px;
+  cursor: pointer;
+}
+#options li:hover {
+  background-color: #f2f2f2;
+}
+
+.hidden-child {
+  display: none;
+}
+
+#options-child {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 100px;
+  position: absolute;
+  top: 28px;
+  left: -6px;
+  font-size: 16px;
+  background-color: #ebebd7;
+}
+
+#options-child li {
+  padding: 5px;
+  cursor: pointer;
+}
+#options-child li:hover {
+  background-color: #f2f2f2;
 }/*# sourceMappingURL=main.css.map */
