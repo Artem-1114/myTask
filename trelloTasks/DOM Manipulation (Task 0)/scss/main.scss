@@ -1,0 +1,55 @@
+@import "./bock/_start.scss";
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    width: 94%;
+    padding: 10px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    gap: 10px;
+}
+.gallery-item {
+    width: 25%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 1s ease;
+        opacity: 0.8;
+    }&:hover {
+        img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+    }
+}
+.full-img-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 5;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+    }
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 30px;
+        cursor: pointer;
+    }
+}
