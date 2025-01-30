@@ -9,6 +9,16 @@
 <body>
     <header></header>
     <main>
+
+        <div class="new-img">
+            <input type="text" placeholder="URL" id="urlInput">
+            <button type="submit" id="submitBtn" >Sabmit</button>
+            <button class="delete-btn">Delete</button>
+        </div>
+        <div id="all-carusel"style="display: none;">
+            <button class="carusel-btn prev" >&#8656</button>
+            <button class="carusel-btn next">&#8658</button>
+        </div>
         <div class="full-img-box" id="fullImgBox">
             <img src="" alt=""id="fullImg">
             <span class="close-btn" id="closeBtn" onclick="closeFullImg()">X</span>
