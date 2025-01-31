@@ -174,16 +174,17 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #f00;
+  background-color: rgb(228, 30, 30);
   color: #fff;
   border: none;
   padding: 5px 10px;
   font-size: 16px;
   cursor: pointer;
-  display: none;
-  z-index: 10;
+  z-index: 3;
+  transform: 1s ease;
 }
 
 .delete-btn:hover {
-  background-color: #ff0000;
+  transition: all 1s ease;
+  background-color: rgba(255, 0, 0, 0.9294117647);
 }/*# sourceMappingURL=main.css.map */

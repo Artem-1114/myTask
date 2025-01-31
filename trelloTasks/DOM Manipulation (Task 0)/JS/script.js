@@ -15,25 +15,38 @@ const urlInput = document.getElementById("urlInput");
 const delteBtn = document.querySelector(".delete-btn");
 
 
-function addNewImg() {// Додаваня нової картинки в галерею 
+function addNewImg() {
     let urlInput = document.getElementById("urlInput");
     let galleryContainer = document.getElementById("gallery-container");
+
     if (urlInput.value === "") {
-        return;  // Повертаємо, якщо немає URL
+        return;  // Вихід, якщо поле порожнє
     }
-    let deleteBtn = document.querySelector(".delete-btn");
-    deleteBtn.addEventListener("click", function () {
-        newDiv.remove(); // Видаляємо div.gallery-item
-    });
-    let newDiv = document.createElement("div");  // Створюємо div
-    newDiv.classList.add("gallery-item");        // Додаємо клас
-    let newImg = document.createElement("img");  // Створюємо img
+
+    let newDiv = document.createElement("div");// додаємо дів  
+    newDiv.classList.add("gallery-item");// додаємо клас        
+    
+    let uniqueId = Date.now(); // Генеруємо унікальний ID
+    newDiv.setAttribute("data-id", uniqueId); // Додаємо як атрибут ( формуємо унікальний ID)
+
+    let newImg = document.createElement("img");  
     newImg.src = urlInput.value;
-// додаємо URL
-    newDiv.appendChild(newImg);// Додаємо img у div
+
+    let deleteBtn = document.createElement("button"); // Створюємо кнопку
+    deleteBtn.innerText = "Видалити";
+    deleteBtn.style.position = "absolute";
+    deleteBtn.classList.add("delete-btn");
+
+    // Додаємо обробник подій для видалення
+    deleteBtn.addEventListener("click", function () {
+        newDiv.remove(); // Видаляємо тільки цей елемент
+    });
+
+    newDiv.appendChild(newImg);
     newDiv.appendChild(deleteBtn);
-    galleryContainer.appendChild(newDiv); // Додаємо div у галерею
-    urlInput.value = ""; 
+    galleryContainer.appendChild(newDiv); 
+
+    urlInput.value = ""; // Очищаємо поле вводу
 }
 
 // Обробка кнопкою!!
@@ -104,7 +117,6 @@ function galleryInit(event) {
     let target = event.target;
     if (target.tagName === "IMG") {
         allCarusel.style.display = "block";
-        delteBtn.style.display = "block";
         let fullImhPathClick = target.src;
         const index = allGalleryImg.indexOf(target);
         openFullImg(fullImhPathClick,allGalleryImg, index);
