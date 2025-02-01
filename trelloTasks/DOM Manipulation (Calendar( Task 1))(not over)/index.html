@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./scss/main.css">
+</head>
+<body>
+    <header></header>
+    <main>
+       <div class="decors">
+            <div class="decor decor_1"></div>
+            <div class="decor decor_2"></div>
+       </div>
+    <div class="calendar">
+        <div class="calendar_header">
+            <div class="calendar_month" id="month-year"></div>
+            <div class="calendar__btfs">
+                <button type="button" class="calendar__btf" id="prev-btf">
+                    <img src="./images/left-arrow-svgrepo-com (2).svg" alt="Previous">
+                </button>
+                <button type="button" class="calendar__btf" id="next-btf">
+                    <img src="./images/right-arrow-svgrepo-com.svg" alt="Next">
+                </button>
+            </div>
+        </div>
+        <div class="calendar_body">
+            <div class="calendar_day-name"></div>
+            <div class="calendar_days" id="calendar-days"></div>
+        </div>
+    </div>
+    <div class="modal hidden"id="modal" >
+        <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Плани на <span id="selected-date"></span></h2>
+        <textarea id="event-input" placeholder="Введіть свої плани..."></textarea>
+        <button id="save-event">Зберегти</button>
+        <button id="delete-event">Видалити</button>
+    </div>
+    </main>
+    <footer></footer>
+    <script src="./JS/script.js"></script>
+</body>
+</html>
