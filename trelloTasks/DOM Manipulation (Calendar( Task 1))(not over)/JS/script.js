@@ -49,34 +49,71 @@ nextBtf.addEventListener('click', () => changeMonth(1));
 
 renderDayNames();// обявляю функію щоб воно працювало
 renderCalendar();
-
-
+//=================================================================
 const modal = document.getElementById('modal');
 const closeModal = document.querySelector('.close-btn');
-const selectedDateSpam = document.getElementById('selected-date');
+const selectedDateSpan = document.getElementById('selected-date');
 const eventInput = document.getElementById('event-input');
 const saveEventBtn = document.getElementById('save-event');
-deleteEventBtn = document.getElementById('delete-event');// додаю зміні
+const deleteEventBtn = document.getElementById('delete-event'); // Додано const
+
+let selectedDate = null; // зміна для збереженя вибраної дати
 
 
-let selectedDate = null;// обявляю змінну яка буде зберігати дату
+const getEvents = () => {
+    return JSON.parse(localStorage.getItem('events')) || {};
+};// ця функія отримує та обробляє дані з LocalStorage та перетврює текст на обєкт
 
-const openModal = (date) => {
-    selectedDate = date;
-    selectedDateSpam.textContent = `${date}.${currenDate.getMonth() + 1}.${currenDate.getFullYear()}`;// додаю дату
-    modal.classList.remove("hidden"); // забираю клас hidden
+
+const saveEvents = (events) => {
+    localStorage.setItem('events', JSON.stringify(events));//перетворюючи його на текст
+};// зберігає подію у LocalStorage
+
+const openModal = (date) => {// функія модального вікна
+    selectedDate = `${date}.${currenDate.getMonth() + 1}.${currenDate.getFullYear()}`;// додає дату доо модального вікна
+    selectedDateSpan.textContent = selectedDate;// додає дату доо модального вікна span
+
+    const events = getEvents();// звертаюся до LocalStorage
+    eventInput.value = events[selectedDate] || ''; // отримуємло подію з LocalStorage
+
+    modal.classList.remove("hidden");// показую модальне вікно
 };
+
 
 const closeModalContent = () => {
-    modal.classList.add("hidden");// додаю клас hidden
+    modal.classList.add("hidden"); // додаю клас hidden
 };
 
-closeModal.addEventListener("click", closeModalContent);// обробка події закритя на крестик
+// Функція збереження події
+const saveEvent = () => {
+    const events = getEvents();// отримую подію з LocalStorage
+    if (eventInput.value.trim()) {//якщо поле не порожне додаю його в обєкт
+        events[selectedDate] = eventInput.value.trim();
+    } else {
+        delete events[selectedDate]; // якщо поле порожне видаляю
+    }
+    saveEvents(events);// зберігаю подію у LocalStorage
+    closeModalContent();
+};
+
+// Функція видалення події
+const deleteEvent = () => {
+    const events = getEvents();
+    delete events[selectedDate];
+    saveEvents(events);
+    eventInput.value = ''; // Очищення поля вводу
+    closeModalContent();
+};
+
 
 document.getElementById("calendar-days").addEventListener("click", (event) => {
     if (event.target.tagName === "SPAN" && !event.target.classList.contains("calendar__days-hidden")) {
-        openModal(event.target.textContent);// стверджую якщо натиснути на Spam і він не буде класом calendar__days-hidden то відкриєтся модальне вікно
+        openModal(event.target.textContent);// функія вкахує на те що коли натиснути на спам і ван відкриває модальне вікно також у ньому не має класу hidden
     }
 });
 
-  
+// Додаємо обробники подій
+saveEventBtn.addEventListener('click', saveEvent);
+deleteEventBtn.addEventListener('click', deleteEvent);
+closeModal.addEventListener("click", closeModalContent); // обробка подій на кліки
+

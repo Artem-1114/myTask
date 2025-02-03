@@ -1,0 +1,102 @@
+@import "./bock/_start.scss";
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto';
+    background: linear-gradient(to right, #F09819, #ff512f);
+    color: black;
+}
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    h1{
+        font-size: 32px;
+        color: #ff6d00;
+        margin-bottom: 20px;
+    }
+    
+    
+}
+
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ff6d00;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    color: black;
+    background-color: white;
+    margin-bottom: 15px;
+}
+input[type="text"]:focus {
+    border-color: #ff4500;
+}
+
+
+
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: #ff6d00;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color #ff6d00 0.6s;
+}
+button:hover {
+    background-color: #ff4500;
+}
+
+#taskList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 25px;
+    color: black;
+    font-size: 16px;
+    border: 1px solid #ff6d00;
+}
+
+.task.completed {
+    text-decoration: line-through;
+    color: gray; 
+    background: #ffcc99;
+
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #e63946;
+    font-size: 16px;
+}
+.delete-btn:hover {
+    color: white;
+}
