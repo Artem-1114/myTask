@@ -1,0 +1,175 @@
+@import "./bock/_start.scss";
+:root {
+    --background: var(--bg-light);
+    --text-color: var(--text-darck);
+    --menu-bg: var(--bg-light);
+    --svg-fill: var(--text-darck);
+
+    --bg-darck: #0d1b2a;
+    --text-darck: black;
+    --bg-light: white;
+    --text-light: white;
+    --menu-bg-dark: #1a2b3c;
+    --menu-bg-light: white;
+    --svg-fill-dark: white;
+    --svg-fill-light: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: var(--bg-darck);
+        --text-color: var(--text-light);
+        --menu-bg: var(--menu-bg-dark);
+        --svg-fill: var(--svg-fill-dark);
+    }
+}
+body {
+    background: var(--background);
+    color: var(--text-color);
+    transition: all 0.7s ease-in-out;
+}
+
+body.dark {
+    --background: var(--bg-darck);
+    --text-color: var(--text-light);
+    --menu-bg: var(--menu-bg-dark);
+    --svg-fill: var(--svg-fill-dark);
+}
+
+body.light {
+    --background: var(--bg-light);
+    --text-color: var(--text-darck);
+    --menu-bg: var(--menu-bg-light);
+    --svg-fill: var(--svg-fill-light);
+}
+svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--svg-fill);
+}
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100vh;
+    background: var(--menu-bg);;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+    gap: 30px;
+    padding-top: 60px;
+    transition: all 0.7s ease-in-out;
+}
+.menu:hover {
+    width: 200px;
+}
+.menu__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    position: relative;
+}
+.menu__item span {
+    margin-left: 10px;
+    font-size: 18px;
+    display: block;
+    position: absolute;
+    left: 30%;
+    opacity: 0;
+    transition: all 0.7s ease-in-out;
+}
+.random-text {
+   display: flex;
+   width: 500px;
+   align-items: center;
+   justify-content: center;
+   margin: 50px auto 0;
+   flex-direction: column;
+   color: var(--text-color);
+    h1 {
+        margin-bottom: 20px;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        border-bottom: 2px solid black;
+        padding: 10px 0;
+    }
+    p {
+        font-size: 20px;
+        line-height: 1.5;
+        text-align: justify;
+    }
+}
+.footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+    margin-bottom: 2rem;
+    left: 0;
+}
+.switch_container {
+    display: flex;
+}
+#switch {
+    display: none;
+}
+.label {
+    position: relative;
+    width: 70px;
+    height: 25px;
+    background-color: #333;
+    border-radius: 2rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s ease
+}
+
+.label:hover {
+    cursor: pointer;
+}
+#switch:checked + .label {
+    background-color: #cd711c;
+}
+.label::before{
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.8s ease;
+}
+.sun ,.moon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+.sun {
+top: 12%;
+left: -33%;
+}
+.moon {
+    top: 9%;
+    right: 9%;
+}
+#switch:checked + .label::before {
+    transform: translate(45px);
+    transition: all 0.7s ease;
+    
+}
+#switch:checked + .label .sun {
+    left: 11%;
+    transition: all 0.7s ease;
+}
+#switch:checked + .label .moon {
+    right: -25%;
+    transition: all 0.7s ease;
+}
+#switch:active + .label::before {
+    width: 35px;
+}
+
