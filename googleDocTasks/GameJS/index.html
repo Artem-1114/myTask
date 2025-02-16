@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwest</title>
+    <link rel="stylesheet" href="./scss/main.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="start__page " id="startPage">
+            <div class="name_user">
+                <span>І'мя героя </span>
+                <input type="text" id="name" placeholder="Папай">
+            </div>
+            <div class="regulations">
+                <h2>Завдання</h2>
+                <p>Перемогти всіх ворогів у пещері</p>
+                <h2>Правила</h2>
+                <p>1. У вашого героя та вороів є показник захисту (КД) показник здоровя (ХП)</p>
+                <p>2. Щоб зробити аткаку треба буде кинути двадцяти граний кубик і додати вашу точність(залежить від зброї) сума повина бути більше за КД ворога тільки в такому разі ви влучаєте</p>
+                <p>3. З піднятям рівня ваш показник здоровя буде рости</p>
+                <p>4. Обмін ударами з ворогом буде виконуватися по черзі.Коли ти походив і ворог теж.Це буде рахуватися за 1 раунт</p>
+                <p>5. В кожному раунді ти можеш нанести удар та виконати додаткову дію ( випити зілля лікування , виконати посилену атаку, тощо...)</p>
+            </div>
+            <button id="start">Почати гру</button>
+        </div>
+        <div id="prologue__Page" class="prologue hidden">
+            <div class="prologue__text">
+                <p>Вашу майстерню гру на лютні знову не оцінили.І вже в котре ви опиняєтесь на дні вигрібної ями чи канави.</p>
+                <p>Тут щось не так це. Це не печера...А я тут як опинився?...Що трапилося?</p>
+                <i><p>Ти чуєш звуки якогось руху та шкрябання. Твої інститути підказують тобі що це не творі палкі шанувальники.</p></i>
+                <i><p>Ти хапаєш лютню обома руками та готовишся до бою</p></i>
+            </div>
+            <button id="startGame" class="hidden">Зустрітися з ворогом</button>
+        </div>
+        <div id="game__Page" class="game hidden">
+           <div class="names">
+            <span id="name_user">Папай</span>
+            <span id="name__enemy-rat">Криса</span>
+        </div>
+        <div class="characteristics">
+            <div id="characteristics__user" class="characteristics__user">
+                <div class="HP_user" >HP<span id="HP_user">100</span></div>
+                <div class="KD_user" >KD<span id="KD_user">1</span></div>
+                <div class="EXP_user" id="EXP_user">EXP<span>0</span></div>
+                <div class="level_user" id="level_user">LV<span>1</span></div>
+            </div>
+            <div id="characteristics__enemy-rat" class="characteristics__enemy-rat">
+                <div class="HP_enemy-rat" id="HP_enemy-red">HP<span>100</span></div>
+                <div class="KD_enemy-rat" >KD<span id="KD_enemy-red">1</span></div>
+            </div>
+        </div>
+        <img src="./images/HERO.png" alt="HERO" id="hero" class="hero">
+        <img src="./images/d20.png" alt="" class="d20" id ="d20">
+        <div id="result"></div>
+        <div id="crt_anLack" >Критична невдача</div>
+        <div id="crt_Lack">Критичний успіх</div>
+        <img src="./images/rat.png" alt="big rat" id="rat" class="rat">
+        <div class="actions">
+            <button id="attack">Атака</button>
+            <button id="another__action">Інша дія</button>
+            <div id="actionModal" class="modal hidden">
+                <div class="modal-content">
+                    <p>Виберіть дію:</p>
+                    <button id="confuseEnemy">Збентежити ворога</button>
+                    <button id="defend">Захищатися</button>
+                    <button id="closeModal">Закрити</button>
+                </div>
+            </div>
+            <button id="inventory">Інвентарш</button>
+            <div id="inventoryModal" class="inventory hidden">
+            <div class="inventory-content">
+                <p>Оберіть предмет:</p>
+                <button id="heal" class="staff">Зіляя здоровя</button>
+                <button id="strong" class="staff">Зіляя сили</button>
+                <button id="closeModalInventary">Закрити</button>
+            </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        
+    </main>
+    <footer></footer>
+    <script src="./JS/script.js"></script>
+</body>
+</html>
