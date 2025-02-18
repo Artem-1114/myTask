@@ -624,4 +624,139 @@ img {
 /* Клас для активації атаки ворога */
 .enemy-attacking {
   animation: enemyAttack 1s ease-in-out;
+}
+
+/* Анімація для героя при отриманні урону */
+@keyframes heroHurt {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(-15px) rotate(-5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(15px) rotate(5deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(-10px) rotate(-3deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+.hero.hurt {
+  animation: heroHurt 0.5s ease-in-out;
+}
+
+/* Анімація для ворога при отриманні урону */
+@keyframes enemyHurt {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.rat.hurt {
+  animation: enemyHurt 0.5s ease-in-out;
+}
+
+/* Анімація для критичного удару */
+@keyframes criticalHit {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.critical-hit {
+  animation: criticalHit 0.5s ease-in-out;
+}
+
+/* Анімація для зниження HP */
+@keyframes hpDecrease {
+  0% {
+    transform: scale(1);
+    color: white;
+  }
+  50% {
+    transform: scale(1.2);
+    color: red;
+  }
+  100% {
+    transform: scale(1);
+    color: white;
+  }
+}
+.hp-decrease {
+  animation: hpDecrease 0.5s ease-in-out;
+}
+
+/* Анімація для зниження HP ворога */
+@keyframes enemyHpDecrease {
+  0% {
+    transform: scale(1);
+    color: white;
+  }
+  50% {
+    transform: scale(1.2);
+    color: red;
+  }
+  100% {
+    transform: scale(1);
+    color: white;
+  }
+}
+.enemy-hp-decrease {
+  animation: enemyHpDecrease 0.5s ease-in-out;
+}
+
+/* Анімація для ворога при влучанні атаки героя */
+@keyframes enemyHitFlash {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5) hue-rotate(0deg);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+.rat.hit {
+  animation: enemyHitFlash 0.3s ease-in-out;
+}
+
+/* Анімація для героя при влучанні атаки ворога */
+@keyframes heroHitFlash {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5) hue-rotate(0deg);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+.hero.hit {
+  animation: heroHitFlash 0.3s ease-in-out;
 }/*# sourceMappingURL=main.css.map */
