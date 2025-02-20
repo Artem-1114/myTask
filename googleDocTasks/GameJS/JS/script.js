@@ -17,30 +17,167 @@ document.addEventListener("DOMContentLoaded", function () {
     const userKD = document.getElementById("KD_user");
     const redKD = document.getElementById("KD_enemy-red");
     const btsStrongAttack = document.getElementById("strong");
-    let enemyKD = Number(redKD.textContent); // Перетворюємо в число
 
+    let enemyKD = Number(redKD.textContent); // Перетворюємо в число дест воно нормально не рахувалося так що я створив такий костиль впринцепі і без нього можна
     let playerTurn = true;
     let lastRoll = null;
     let canAttack = false;
     let defenseUsed = false; // Для захисту
     let healUsed = false; // Для лікування
-    let confuseUsed = false;
+    let confuseUsed = false;// Для збентеження
+    let strongAttackUsed = false; // Для сильного удару
+
+    const actionModal = document.getElementById("actionModal");
+    const inventoryModal = document.getElementById("inventoryModal");
+    let playerActionTimeout = null; // Таймер для обмеження часу на дію гравця
+
+    
+    const initialKD = Number(userKD.textContent);// це вже не костиль , бо виконує роль кд яке є з початку в подальшому це може знадобитися якщо гру покращувати
+
+    // Робимо кнопку інвентаря неактивною на початку
+    const inventoryButton = document.getElementById("inventory");
+    inventoryButton.disabled = true;
 
     // ========================== ПОЧАТОК ГРИ ==========================
+    
+        const nameInput = document.getElementById("name");
+        const nameDisplay = document.getElementById("name_user");
+
+        nameInput.addEventListener("input", function () {
+            let filteredName = nameInput.value.replace(/[^a-zA-Zа-яА-ЯїЇєЄіІґҐ’ʼ ]/g, ""); // Дозволяємо лише літери та пробіли
+            nameInput.value = filteredName; // Видаляємо заборонені символи
+            nameDisplay.textContent = filteredName.trim() || "Папай"; // Оновлюємо відображення імені
+        });
+    
+
     function startGame() {
-        startPage.classList.add("hidden");
-        prologuePage.classList.remove("hidden");
+        startPage.classList.add("hidden"); // Ховаємо стартову сторінку
+        prologuePage.classList.remove("hidden"); // Показуємо пролог
         setTimeout(() => {
-            btsStartGame.classList.remove("hidden");
-        }, 100);
+            btsStartGame.classList.remove("hidden"); // Показуємо кнопку після друку тексту
+        }, 24000);//24
+
+        startTypingEffect(); // Запускаємо друк тексту
     }
 
     startButton.addEventListener("click", startGame, { once: true });
-
-    btsStartGame.addEventListener("click", () => {
+    btsStartGame.addEventListener("click", () => { 
         prologuePage.classList.add("hidden");
         startGamePage.classList.remove("hidden");
-    });
+        
+    })
+    const prologueTextContainer = document.querySelector('.prologue__text');
+    const paragraphs = prologueTextContainer.querySelectorAll('p');
+    const typingSpeed = 60; // Швидкість друку символів у мс
+
+  
+    function hidePrologueText() {
+        paragraphs.forEach(paragraph => {
+            paragraph.dataset.text = paragraph.textContent; // Зберігаємо текст
+            paragraph.textContent = ""; // Очищаємо перед друком
+        });
+    }
+    async function typeText(element) {
+        const text = element.dataset.text.split(""); // Розбиваємо текст на символи
+
+        for (let char of text) {
+            element.textContent += char; // Додаємо по символу
+            await new Promise(resolve => setTimeout(resolve, typingSpeed));
+        }
+    }
+    async function startTypingEffect() {
+        hidePrologueText(); // Ховаємо весь текст перед початком друку
+
+        for (let paragraph of paragraphs) {
+            await typeText(paragraph);
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Пауза між абзацами
+        }
+    }
+    function updateHP(character, newHP) {
+        const hpElement = document.getElementById(`HP_${character}`);
+        const characterElement = document.getElementById(character === 'user' ? 'hero' : 'rat');
+
+        // Оновлюємо значення HP
+        hpElement.textContent = newHP;
+
+        // Додаємо клас для анімації отримання урону
+        if (character === 'user') {
+            characterElement.classList.add('hurt'); // Анімація для героя
+        } else {
+            characterElement.classList.add('hurt'); // Анімація для ворога
+        }
+
+        // Додаємо клас для анімації зниження HP
+        if (character === 'user') {
+            hpElement.classList.add('hp-decrease'); // Анімація для HP героя
+        } else {
+            hpElement.classList.add('enemy-hp-decrease'); // Анімація для HP ворога
+        }
+
+        // Видаляємо класи після завершення анімацій
+        setTimeout(() => {
+            characterElement.classList.remove('hurt');
+            hpElement.classList.remove('hp-decrease', 'enemy-hp-decrease');
+        }, 500); // Час має відповідати тривалості анімацій
+    }
+    // ========================== АТАКА ГРАВЦЯ ==========================
+    btsAttack.addEventListener("click", () => {
+            if (!canAttack || !playerTurn) return;
+            canAttack = false;
+
+            if (lastRoll === 20) {
+                heroAttackAnimation();
+                const damage = attackDMG() * 2; // Множимо пошкодження на 2, якщо випав 20
+                applyDamageToEnemy(damage);
+                // Анімація критичного удару
+                document.getElementById('result').classList.add('critical-hit');
+                setTimeout(() => {
+                    document.getElementById('result').classList.remove('critical-hit');
+                    
+                }, 500);
+            } else if (lastRoll === 1) {
+                let currentHP = Number(HPhero.textContent);
+                let newHP = Math.max(0, currentHP - 3);
+                updateHP('user', newHP);
+                checkLose();
+            } else if (lastRoll >= enemyKD) {
+                heroAttackAnimation();
+
+                attackDMG();
+            } else {
+                let currentHP = Number(HPhero.textContent);
+                let newHP = Math.max(0, currentHP);
+                updateHP('user', newHP);
+                checkLose();
+            }
+            endPlayerTurn();
+        });
+
+    // ========================== АТАКА ВОРОГА ==========================
+    function enemyAttack(callback) {
+        setTimeout(() => {
+            const roll = 2 + (Math.floor(Math.random() * 20) + 1);
+            if (roll >= 20) {
+                const damage = 2 * (Math.floor(Math.random() * 6) + 1);
+                let currentHP = Number(HPhero.textContent);
+                let newHP = Math.max(0, currentHP - damage);
+                updateHP('user', newHP);
+                checkLose();
+            } else if (roll === 1) {
+                let currentHP = Number(HPenemyRed.textContent);
+                let newHP = Math.max(0, currentHP - 3);
+                updateHP('enemy-rat', newHP);
+            } else if (roll >= playerKD) {
+                const damage = Math.floor(Math.random() * 6) + 1;
+                let currentHP = Number(HPhero.textContent);
+                let newHP = Math.max(0, currentHP - damage);
+                updateHP('user', newHP);
+                checkLose();
+            }
+            if (callback) callback();
+        }, 1000);
+    }
+
 
     // ========================== КИДОК КУБИКА D20 ==========================
     dice.addEventListener("click", function () {
@@ -57,51 +194,23 @@ document.addEventListener("DOMContentLoaded", function () {
         crtLackDisplay.style.display = lastRoll === 20 ? 'block' : 'none';
         crtAnLackDisplay.style.display = lastRoll === 1 ? 'block' : 'none';
     });
-
-    // ========================== АТАКА ГРАВЦЯ ==========================
-    btsAttack.addEventListener("click", function () {
-        if (!canAttack || !playerTurn) return;
-        canAttack = false;
-
-        if (lastRoll === 20) {
-            heroAttackAnimation();
-            const damage = attackDMG() * attackDMG(); // Множимо пошкодження на 2, якщо випав 20
-            applyDamageToEnemy(damage); // Наносимо множене пошкодження
-        } else if (lastRoll === 1) {
-            let currentHP = Number(HPhero.textContent);
-            let newHP = Math.max(0, currentHP - 3);
-            HPhero.textContent = newHP;
-            checkLose();
-        }
-        else if (lastRoll >= enemyKD) {
-            heroAttackAnimation();
-            attackDMG();
-        }else {
-            console.error();
-            
-        }
-        endPlayerTurn();
-    });
+    
 
 
-    let strongAttackUsed = false; // Змінна для відстеження використання сильного удару
-
+    // ========================== СИЛЬНИЙ УДАР ==========================
     btsStrongAttack.addEventListener("click", function () {
-        if (!canAttack || !playerTurn || strongAttackUsed) return; // Якщо сильний удар вже був використаний, не дозволяємо натискати кнопку
+        if (!canAttack || !playerTurn || strongAttackUsed) return;
 
         canAttack = false;
 
-        // Якщо сильний удар ще не був використаний, виконуємо його
         if (lastRoll >= enemyKD) {
             inventoryModal.classList.add("hidden");
             heroAttackAnimation();
             strongAttack();
         }
 
-        // Після виконання сильного удару відзначаємо, що він був використаний
         strongAttackUsed = true;
-
-        endPlayerTurn(); // Завершуємо хід гравця
+        endPlayerTurn();
     });
 
     function strongAttack() {
@@ -111,9 +220,18 @@ document.addEventListener("DOMContentLoaded", function () {
         HPenemyRed.textContent = newHP;
         checkWin();
     }
+
     // ========================== ЛОГІКА АТАКИ ТА УШКОДЖЕННЯ ==========================
     function attackDMG() {
         const damage = Math.floor(Math.random() * 6) + 1;
+        let currentHP = Number(HPenemyRed.textContent);
+        let newHP = Math.max(0, currentHP - damage);
+        HPenemyRed.textContent = newHP;
+        checkWin();
+        return damage;
+    }
+
+    function applyDamageToEnemy(damage) {
         let currentHP = Number(HPenemyRed.textContent);
         let newHP = Math.max(0, currentHP - damage);
         HPenemyRed.textContent = newHP;
@@ -122,6 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ========================== АТАКА ВОРОГА ==========================
     let playerKD = Number(userKD.textContent);
+
     function enemyAttack(callback) {
         setTimeout(() => {
             const roll = Math.floor(Math.random() * 20) + 1;
@@ -131,12 +250,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 let newHP = Math.max(0, currentHP - damage);
                 HPhero.textContent = newHP;
                 checkLose();
-            }  if (roll === 1) {
+            } else if (roll === 1) {
                 let currentHP = Number(HPenemyRed.textContent);
                 let newHP = Math.max(0, currentHP - 3);
-                HPhero.textContent = newHP;
-                checkLose();
-            } if (roll >= playerKD) {
+                HPenemyRed.textContent = newHP;
+            } else if (roll >= playerKD) {
                 const damage = Math.floor(Math.random() * 6) + 1;
                 let currentHP = Number(HPhero.textContent);
                 let newHP = Math.max(0, currentHP - damage);
@@ -147,45 +265,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
     }
 
-
     // ========================== ЛОГІКА ЗАХИСТУ ==========================
     let initialHP = Number(HPhero.textContent);
 
     document.getElementById("defend").addEventListener("click", function () {
-        if (defenseUsed) return; // Якщо захист вже використано, нічого не робимо
+        if (defenseUsed) return;
 
-        let baseKD = Number(userKD.textContent); // Отримуємо поточне КД гравця
-        userKD.textContent = baseKD + 2; // Збільшуємо КД на 2
+        // Збільшуємо КД на 2
+        const currentKD = Number(userKD.textContent);
+        userKD.textContent = currentKD + 2;
 
-        defenseUsed = true; // Встановлюємо, що захист використано
-        document.getElementById("defend").disabled = true; // Вимикаємо кнопку захисту
+        defenseUsed = true;
+        document.getElementById("defend").disabled = true;
         actionModal.classList.add("hidden");
 
-        if (healUsed) {
-            startEnemyAttack(); // Якщо лікування вже використано, одразу атакує ворог
-        } else {
-            setTimeout(() => {
-                playerTurn = false; // Хід гравця завершено
-                setTimeout(startEnemyAttack, 6000); // Ворог атакує через 6 секунд, якщо не було лікування
-            }, 1000);
+        // Якщо гравець використав захист, чекаємо на лікування
+        if (!healUsed) {
+            playerActionTimeout = setTimeout(() => {
+                if (!healUsed) { // Якщо лікування не було використано
+                    startEnemyAttack();
+                }
+            }, 5000);
         }
     });
 
+    // ========================== ЛІКУВАННЯ ==========================
     document.getElementById("heal").addEventListener("click", function () {
-        if (healUsed) return; // Не можна лікуватися більше одного разу за хід
+        if (healUsed) return;
 
         healHero();
-        healUsed = true; // Встановлюємо, що лікування використано
-        document.getElementById("heal").disabled = true; // Вимикаємо кнопку лікування після використання
+        healUsed = true;
+        document.getElementById("heal").disabled = true;
         inventoryModal.classList.add("hidden");
 
-        if (defenseUsed) {
-            startEnemyAttack(); // Якщо захист вже використано, одразу атакує ворог
-        } else {
-            setTimeout(() => {
-                playerTurn = false;
-                setTimeout(startEnemyAttack, 6000); // Ворог атакує через 6 секунд, якщо не було захисту
-            }, 1000);
+        if (defenseUsed || confuseUsed) {
+            clearTimeout(playerActionTimeout); // Скасовуємо таймер
+            startEnemyAttack();
         }
     });
 
@@ -194,67 +309,32 @@ document.addEventListener("DOMContentLoaded", function () {
         HPhero.textContent = Math.min(initialHP, Number(HPhero.textContent) + heal);
     }
 
+    // Функція для початку атаки ворога
     function startEnemyAttack() {
         enemyAttack(() => {
-            userKD.textContent = Number(userKD.textContent) - 2; // Повертаємо початкове КД
-            playerTurn = true; // Знову хід гравця
-            defenseUsed = false; // Можна використовувати захист знову
-            healUsed = false; // Можна лікуватися знову
-            enemyAttackAnimation(); // Анімація атаки ворога
-            playerTurnOptions(); // Дозволяємо вибір дій для гравця після ходу ворога
+            playerTurn = true;
+            enemyAttackAnimation();
+            resetPlayerActions(); // Скидаємо всі дії гравця для нового ходу
         });
     }
-   
-    function healHero() {
-        const heal = Math.floor(Math.random() * 4) + 1;
-        HPhero.textContent = Math.min(initialHP, Number(HPhero.textContent) + heal);
-    }// переробити хп не повино бути більше чив початкове та хілку можна використати на наступний хід
+
     // ========================== ЗБЕНТЕЖЕННЯ ВОРОГА ==========================
     document.getElementById("confuseEnemy").addEventListener("click", function () {
         if (confuseUsed) return;
 
+        confuseUsed = true;
         document.getElementById("confuseEnemy").disabled = true;
         actionModal.classList.add("hidden");
 
-        setTimeout(() => {
-            playerTurn = false;
-
-            const roll1 = Math.floor(Math.random() * 20) + 1;
-            const roll2 = Math.floor(Math.random() * 20) + 1;
-            const minRoll = Math.min(roll1, roll2);
-
-            function enemyAttack(callback) {
-                setTimeout(() => {
-                    if (minRoll === 20) {
-                        const damage = 2 * (Math.floor(Math.random() * 6) + 1);
-                        let currentHP = Number(HPhero.textContent);
-                        let newHP = Math.max(0, currentHP - damage);
-                        HPhero.textContent = newHP;
-                        checkLose();
-                    } if (minRoll === 1) {
-                        let currentHP = Number(HPenemyRed.textContent);
-                        let newHP = Math.max(0, currentHP - 3);
-                        HPhero.textContent = newHP;
-                        checkLose();
-                    } if (minRoll >= userKD) {
-                        const damage = Math.floor(Math.random() * 6) + 1;
-                        let currentHP = Number(HPhero.textContent);
-                        let newHP = Math.max(0, currentHP - damage);
-                        HPhero.textContent = newHP;
-                        checkLose();
-                    }
-                    if (callback) callback();
-                }, 1000);
-            }
-            enemyAttack()
-            playerTurn = true;
-            confuseUsed = false;
-            enemyAttackAnimation();
-            playerTurnOptions();
-            document.getElementById("confuseEnemy").disabled = false;
-        }, 1000);
+        // Якщо гравець використав збентеження, чекаємо на лікування
+        if (!healUsed) {
+            playerActionTimeout = setTimeout(() => {
+                if (!healUsed) { // Якщо лікування не було використано
+                    startEnemyAttack();
+                }
+            }, 5000);
+        }
     });
-
 
     // ========================== АНІМАЦІЯ АТАКИ ГЕРОЯ ==========================
     function heroAttackAnimation() {
@@ -263,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
             hero.classList.remove("hero-attacking");
-        }, 1000); // Тривалість анімації
+        }, 1000);
     }
 
     // ========================== АНІМАЦІЯ АТАКИ ВОРОГА ==========================
@@ -273,27 +353,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
             enemy.classList.remove("enemy-attacking");
-        }, 1000); // Тривалість анімації
+        }, 1000);
     }
 
     // ========================== ЛОГІКА ХОДУ ГРАВЦЯ ==========================
     function endPlayerTurn() {
         playerTurn = false;
-        setTimeout(() => {
-            // Після того, як гравець завершить хід, запускається хід ворога
-            enemyAttack(() => {
-                playerTurn = true;
-                enemyAttackAnimation()
-            });
-        }, 1000);
+        clearTimeout(playerActionTimeout); // Скидаємо таймер, якщо він був активний
+
+        if (defenseUsed || confuseUsed) {
+            playerActionTimeout = setTimeout(() => {
+                if (!healUsed) { // Якщо лікування не було використано
+                    startEnemyAttack();
+                }
+            }, 5000);
+        } else {
+            setTimeout(() => {
+                enemyAttack(() => {
+                    playerTurn = true;
+                    enemyAttackAnimation();
+                    resetPlayerActions(); // Скидаємо всі дії гравця для нового ходу
+                });
+            }, 1000);
+        }
+    }
+
+    // Функція для скидання станів дій гравця
+    function resetPlayerActions() {
+        defenseUsed = false;
+        healUsed = false;
+        confuseUsed = false;
+        strongAttackUsed = false;
+        document.getElementById("defend").disabled = false;
+        document.getElementById("heal").disabled = false;
+        document.getElementById("confuseEnemy").disabled = false;
+        document.getElementById("attack").disabled = false;
+
+        // Повертаємо КД до початкового значення після захисту
+        userKD.textContent = initialKD;
+
+        // Робимо кнопку інвентаря неактивною на початку кожного ходу
+        inventoryButton.disabled = true;
     }
 
     // ========================== ВИКЛИК МОДАЛЬНИХ ВІКОН ==========================
-    const actionModal = document.getElementById("actionModal");
-    const inventoryModal = document.getElementById("inventoryModal");
-
     document.getElementById("another__action").addEventListener("click", function () {
         actionModal.classList.remove("hidden");
+        // Активуємо кнопку інвентаря після натискання "Інша дія"
+        inventoryButton.disabled = false;
     });
 
     document.getElementById("inventory").addEventListener("click", function () {
@@ -325,11 +432,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function playerTurnOptions() {
         if (!playerTurn) return;
 
-        // Якщо гравець не може діяти, пропускаємо
         document.getElementById("defend").disabled = false;
         document.getElementById("heal").disabled = false;
         document.getElementById("attack").disabled = false;
     }
 
     playerTurnOptions();
-});  
+});
