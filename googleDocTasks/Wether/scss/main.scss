@@ -1,0 +1,95 @@
+@import "./bock/_start.scss";
+@import url(https://fonts.googleapis.com/css?family=Inder:regular);
+svg {
+    width: 30px;
+    height: 30px;
+    
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Inder', sans-serif;
+}
+.weather {
+    width: 320px;
+    background: linear-gradient(to right, #27bad4, #0ce1da);
+    border-radius: 16px;
+    padding: 20px 10px 40px 10px;
+}
+.form {
+    width: 100%;
+    height: 40px;
+    border-radius: 60px;
+    background: white;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    padding-right: 10px
+}
+.form__input {
+    flex-grow: 1;
+}
+.form__button {
+    background-color: white;
+    padding: 0 10px 0 10px;
+    .search {
+        width: 25px;
+        height: 26px;
+    }
+}
+.deteils {
+    margin-top: 10px;
+    text-align: center;}
+
+.form__icon {
+    width: 128px;
+    height: 128px;
+    fill: white;
+    font-size: 56px;
+}
+.weather__temp {
+    font-size: 56px;
+    color:white;
+    font-weight: bold;
+}
+.weather__city {
+    margin-top: 5px;
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+}
+.weather__iform {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: white;
+    font-weight: bold; 
+    gap: 5px;
+    svg {
+        width: 35px;
+        height: 35px;
+        fill: white;
+        margin-top: 5px;
+    } 
+}
+.inform {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: black;
+}
+.inform__value {
+    font-weight: initial;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 20px;
+}
+.hidden {
+    display: none;
+}
+
