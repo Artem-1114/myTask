@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To DO List</title>
+    <link rel="stylesheet" href="./scss/main.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="container">
+            <h1>To Do List</h1>
+         <div class="input-container">
+                <input type="text" placeholder="Enter your task" id="inputTask">
+                <div id="taskPriority" class="bts-container">
+                    <button id="taskImportant" value="important" title="Важливо"></button>
+                    <button id="taskNormal" value="can-wait" title="Можуть почекати"></button>
+                    <button value="someday" id="NotImportant" title="Колись на потім"></button>
+                </div>
+         </div class="input-container">
+            <button type="button" id="addTask">Added</button>
+            <ul id="taskList"></ul> 
+        </div>
+    </main>
+    <footer></footer>
+    <script src="./JS/script.js"></script>
+</body>
+</html>
