@@ -1,0 +1,241 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+body {
+  background: linear-gradient(135deg, #b0c4a7, #6b8e23);
+  background-attachment: fixed;
+  font-family: "Roboto", sans-serif;
+  padding-top: 135px;
+}
+
+.home_accountant {
+  width: 800px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.home_accountant input {
+  width: 160px;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.home_accountant input:focus {
+  background: white;
+  border-color: #388E3C;
+  box-shadow: 0 0 8px rgba(56, 142, 60, 0.6);
+}
+
+.container_income span {
+  margin-right: 15px;
+}
+.container_income input {
+  margin-right: 20px;
+}
+.container_income p {
+  margin-top: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.main_iexpense span {
+  margin-right: 15px;
+}
+.main_iexpense input {
+  width: 120px;
+  margin-right: 20px;
+}
+
+h2 {
+  margin: 15px 0 15px 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.additional_costs span {
+  margin-right: 15px;
+}
+.additional_costs input {
+  width: 400px;
+  margin-right: 35px;
+}
+
+#add_expense_btn {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+#add_expense_btn:hover {
+  background: linear-gradient(135deg, #388E3C, #2E7D32);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+}
+
+#add_expense_btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.total_expense p {
+  margin-top: 10px;
+}
+
+.calculate_btn {
+  margin-top: 20px;
+  margin-left: 38%;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, #008000, #006400);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.calculate_btn:hover {
+  background: linear-gradient(135deg, #006400, #004d00);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.calculate_btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.expense_block {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.expense_block p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.expense_block input {
+  width: 100px;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #4CAF50;
+  border-radius: 5px;
+}
+
+.remove_expense {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background: #f44336;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.remove_expense:hover {
+  background: #d32f2f;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.remove_expense:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}/*# sourceMappingURL=main.css.map */

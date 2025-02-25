@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Accountant</title>
+    <link rel="stylesheet" href="./scss/main.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="home_accountant">
+            <div class="container_income">
+                <span>Основний дохід</span>
+                <input type="number" class="main_income" id="main_income"> 
+                <span>Додатковий дохід</span>
+                <input type="number" class="additional_income" id="additional_income">  
+                <p id="total_income">Всього дохід: </p>   
+            </div>
+            
+            <h1>Види витрат</h1>
+            <div class="container_expense">
+                <div class="main_iexpense" id="main_iexpense">
+                    <span>Житлові витрати (Комунальні платежі/Оренда житла)</span>
+                    <input type="number" class="live_expense" id="live_expense">
+                    <span>Харчуваня</span>
+                    <input type="number" class="food_expense" id="food_expense">    
+            </div>
+            <div class="additional_costs" id="additional_costs">
+                <h2>Додаткові витрати</h2>
+                <span>Додати витрату</span>
+                <input type="text" class="add_expense" id="add_expense" placeholder="Назва витрати">
+                <button id="add_expense_btn">+</button>
+                <!-- Контейнер для нових витрат -->
+                <div id="expenses_list"></div>
+            </div>
+            <div class="total_expense" id="total_expense">
+                <p id="total_expenses">Всього витрат: </p>
+                <p id="balance">Залишок: </p>
+            </div>
+            <button class="calculate_btn" id="">Розрахувати</button>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="./JS/script.js"></script>
+</body>
+</html>
